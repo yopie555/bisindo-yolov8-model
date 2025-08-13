@@ -1,0 +1,39 @@
+### **Step 9: Test Model Loading**
+
+Buat file `examples/test_model.html`:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test BISINDO Model</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+</head>
+<body>
+    <h1>BISINDO Model Test</h1>
+    <button onclick="testModel()">Test Load Model</button>
+    <div id="result"></div>
+
+    <script>
+        async function testModel() {
+            try {
+                console.log('Loading model...');
+                const model = await tf.loadGraphModel('./model/model.json');
+                
+                console.log('Model loaded!');
+                console.log('Inputs:', model.inputs);
+                console.log('Outputs:', model.outputs);
+                
+                document.getElementById('result').innerHTML = 
+                    '✅ Model loaded successfully!<br>' +
+                    'Input shape: ' + model.inputs[0].shape + '<br>' +
+                    'Output shape: ' + model.outputs[0].shape;
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('result').innerHTML = 
+                    '❌ Error loading model: ' + error.message;
+            }
+        }
+    </script>
+</body>
+</html>
